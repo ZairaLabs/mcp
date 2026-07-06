@@ -9,7 +9,7 @@ description: >-
   tools from the live Zaira Guide. Every entry is scored against the open Zaira
   Standard and dated (last_verified), so results are newer than training
   knowledge. Read-only. No API key required.
-homepage: https://zairalabs.ai/guide
+homepage: https://zairalabs.ai/about-the-guide/
 repository: https://github.com/ZairaLabs/mcp
 remote:
   transport: streamable-http
