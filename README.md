@@ -5,7 +5,7 @@ guide built for AI coding agents.**
 
 This repository holds the public metadata for the Zaira Labs Guide MCP server. Not a
 package. Nothing to install. The server is hosted, read-only, and answers from the live
-[Zaira Guide](https://zairalabs.ai/about-the-guide/): developer tools scored against the open
+[Zaira Guide](https://zairalabs.ai/guide): developer tools scored against the open
 [Zaira Standard](https://zairalabs.ai/standard), every entry dated (`last_verified`).
 Guide data is newer than training knowledge. That is the point.
 
@@ -98,7 +98,7 @@ metadata only; the server source runs on Zaira Labs infrastructure.
 ## Links
 
 - Website: https://zairalabs.ai
-- The Guide: https://zairalabs.ai/about-the-guide/
+- The Guide: https://zairalabs.ai/guide
 - The Standard: https://zairalabs.ai/standard
 - Terms: https://zairalabs.ai/terms
 - Privacy: https://zairalabs.ai/privacy
