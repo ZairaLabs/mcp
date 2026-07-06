@@ -19,6 +19,20 @@ Claude Code:
 claude mcp add --transport http zaira https://zairalabs.ai/guide/mcp
 ```
 
+Codex CLI:
+```bash
+codex mcp add zaira --url https://zairalabs.ai/guide/mcp
+```
+
+Gemini CLI, in `~/.gemini/settings.json`:
+```json
+{
+  "mcpServers": {
+    "zaira": { "httpUrl": "https://zairalabs.ai/guide/mcp" }
+  }
+}
+```
+
 Cursor or any JSON-configured client:
 ```json
 {
@@ -28,7 +42,19 @@ Cursor or any JSON-configured client:
 }
 ```
 
+VS Code, in `.vscode/mcp.json`:
+```json
+{
+  "servers": {
+    "zaira": { "type": "http", "url": "https://zairalabs.ai/guide/mcp" }
+  }
+}
+```
+
 Claude.ai: Settings, Connectors, Add custom connector, paste the endpoint URL.
+
+ChatGPT: Settings, Apps and Connectors, Create. Requires a paid plan with developer
+mode enabled. Name it, paste the endpoint URL, no authentication.
 
 ## Tools
 
