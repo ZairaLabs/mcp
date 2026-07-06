@@ -1,0 +1,13 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "ai.zairalabs/guide",
+  "title": "Zaira Labs Guide",
+  "description": "Trust signals for AI agents: an open agent-readiness standard and developer tool guide. Read-only.",
+  "version": "0.1.2",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://zairalabs.ai/guide/mcp"
+    }
+  ]
+}
