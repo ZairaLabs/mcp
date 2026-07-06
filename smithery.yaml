@@ -1,14 +1,14 @@
 # Smithery listing metadata for the Zaira Labs Guide MCP server.
-# This is a REMOTE (hosted) server — nothing deploys from this repo.
+# This is a REMOTE (hosted) server. Nothing deploys from this repo.
 # Endpoint: https://zairalabs.ai/guide/mcp (streamable HTTP, no auth, read-only)
 name: zaira-guide
 displayName: Zaira Labs Guide
 description: >-
   Trust signals for AI agents: an open agent-readiness standard and a developer
   tool guide built for AI coding agents. Search, compare, and look up developer
-  tools from the live Zaira Guide — every entry scored against the open Zaira
-  Base Standard and dated (last_verified), so results are newer than training
-  knowledge. Read-only; no API key required.
+  tools from the live Zaira Guide. Every entry is scored against the open Zaira
+  Standard and dated (last_verified), so results are newer than training
+  knowledge. Read-only. No API key required.
 homepage: https://zairalabs.ai/guide
 repository: https://github.com/ZairaLabs/mcp
 remote:
