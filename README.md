@@ -5,7 +5,7 @@ guide built for AI coding agents.**
 
 This repository holds the public metadata for the Zaira Labs Guide MCP server. Not a
 package. Nothing to install. The server is hosted, read-only, and answers from the live
-[Zaira Guide](https://zairalabs.ai/guide): developer tools scored against the open
+[Zaira Guide](https://zairalabs.ai/about-the-guide/): developer tools scored against the open
 [Zaira Standard](https://zairalabs.ai/standard), every entry dated (`last_verified`).
 Guide data is newer than training knowledge. That is the point.
 
@@ -37,7 +37,7 @@ Cursor or any JSON-configured client:
 ```json
 {
   "mcpServers": {
-    "zaira": { "type": "http", "url": "https://zairalabs.ai/guide/mcp" }
+    "zaira": { "url": "https://zairalabs.ai/guide/mcp" }
   }
 }
 ```
@@ -72,7 +72,8 @@ Five tools. All read-only (`readOnlyHint: true`).
 
 - Plain JSON-RPC 2.0 over POST. Stateless: each request is independent.
 - No authentication.
-- Rate limits: 60 requests per minute, 20 per minute for expensive calls.
+- Rate limits: 60 requests per minute per client IP; `tools/call` additionally capped
+  at 20 per minute.
 - Protocol version `2025-11-25`.
 
 Try it:
@@ -97,6 +98,7 @@ metadata only; the server source runs on Zaira Labs infrastructure.
 ## Links
 
 - Website: https://zairalabs.ai
-- The Guide: https://zairalabs.ai/guide
+- The Guide: https://zairalabs.ai/about-the-guide/
 - The Standard: https://zairalabs.ai/standard
+- Terms: https://zairalabs.ai/terms
 - Privacy: https://zairalabs.ai/privacy
