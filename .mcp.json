@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "zaira": {
-      "type": "http",
-      "url": "https://zairalabs.ai/guide/mcp"
-    }
-  }
-}
