@@ -19,16 +19,18 @@ permissions:
 
 jobs:
   validate-or-publish:
-    # v0.12.0 is the last publisher that accepts real Codex bundle manifests
-    # without forcing the native-plugin marker that breaks local bundle detection.
-    uses: openclaw/clawhub/.github/workflows/package-publish.yml@ecf09b868a986751137f4272283f84967a16c765
+    # Pin the current publisher because ClawHub's live package contract now
+    # requires an explicit plugin manifest even for compatible bundles.
+    uses: openclaw/clawhub/.github/workflows/package-publish.yml@1a3ee6e015af1d9a83a9ce271b56b22d9e17ad20
     with:
       source: ./integrations/openclaw/zaira-guide
       dry_run: ${{ github.event_name != 'workflow_dispatch' || !inputs.publish }}
       owner: zairalabs
+      family: bundle-plugin
       version: 0.1.0
       source_repo: ZairaLabs/mcp
       source_commit: ${{ github.sha }}
       source_ref: ${{ github.ref }}
+      source_path: integrations/openclaw/zaira-guide
     secrets:
       clawhub_token: ${{ secrets.CLAWHUB_TOKEN }}

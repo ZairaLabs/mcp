@@ -1,0 +1,11 @@
+{
+  "id": "zaira-guide",
+  "name": "Zaira Guide",
+  "description": "Research and compare developer tools with the read-only Zaira Guide MCP server.",
+  "version": "0.1.0",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}
