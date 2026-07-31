@@ -1,7 +1,7 @@
 {
   "id": "zaira-guide",
-  "name": "Zaira Guide",
-  "description": "Research and compare developer tools with the read-only Zaira Guide MCP server.",
+  "name": "Zaira Tool Research",
+  "description": "Research, compare, and select developer and agent tools using current, sourced Zaira Guide data.",
   "version": "0.1.0",
   "configSchema": {
     "type": "object",

@@ -1,8 +1,8 @@
 {
   "name": "@zairalabs/zaira-guide",
   "version": "0.1.0",
-  "description": "Research and compare developer tools with the read-only Zaira Guide MCP server.",
-  "license": "SEE LICENSE IN ../../../LICENSE",
+  "description": "Research, compare, and select developer and agent tools using current, sourced Zaira Guide data.",
+  "license": "SEE LICENSE IN LICENSE",
   "homepage": "https://zairalabs.ai/about-the-guide/",
   "repository": {
     "type": "git",
@@ -15,6 +15,7 @@
     "mcp",
     "developer-tools",
     "tool-comparison",
-    "agent-readiness"
+    "agent-readiness",
+    "research"
   ]
 }
