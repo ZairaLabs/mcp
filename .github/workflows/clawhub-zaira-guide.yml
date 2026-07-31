@@ -1,0 +1,34 @@
+name: ClawHub Zaira Guide
+
+on:
+  pull_request:
+    paths:
+      - "integrations/openclaw/zaira-guide/**"
+      - ".github/workflows/clawhub-zaira-guide.yml"
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish version 0.1.0 to ClawHub
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  validate-or-publish:
+    # v0.12.0 is the last publisher that accepts real Codex bundle manifests
+    # without forcing the native-plugin marker that breaks local bundle detection.
+    uses: openclaw/clawhub/.github/workflows/package-publish.yml@ecf09b868a986751137f4272283f84967a16c765
+    with:
+      source: ./integrations/openclaw/zaira-guide
+      dry_run: ${{ github.event_name != 'workflow_dispatch' || !inputs.publish }}
+      owner: zairalabs
+      version: 0.1.0
+      source_repo: ZairaLabs/mcp
+      source_commit: ${{ github.sha }}
+      source_ref: ${{ github.ref }}
+    secrets:
+      clawhub_token: ${{ secrets.CLAWHUB_TOKEN }}

@@ -1,0 +1,7 @@
+{
+  "format": "codex",
+  "hostTargets": [
+    "openclaw",
+    "codex"
+  ]
+}

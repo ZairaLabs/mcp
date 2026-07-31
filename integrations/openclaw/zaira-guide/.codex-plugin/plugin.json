@@ -1,0 +1,43 @@
+{
+  "name": "zaira-guide",
+  "version": "0.1.0",
+  "description": "Research and compare developer tools with the read-only Zaira Guide MCP server.",
+  "author": {
+    "name": "Zaira Labs",
+    "url": "https://zairalabs.ai"
+  },
+  "homepage": "https://zairalabs.ai/about-the-guide/",
+  "repository": "https://github.com/ZairaLabs/mcp",
+  "license": "LicenseRef-Zaira-Labs-Proprietary",
+  "keywords": [
+    "developer-tools",
+    "tool-comparison",
+    "agent-readiness",
+    "mcp",
+    "openclaw"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Zaira Guide",
+    "shortDescription": "Find and compare agent-ready developer tools.",
+    "longDescription": "Search the current Zaira Guide, inspect individual tools, and compare shortlisted options using a hosted read-only MCP server. No API key is required. OpenClaw connects through the pinned mcp-remote@0.1.38 stdio bridge.",
+    "developerName": "Zaira Labs",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Search",
+      "Read",
+      "Compare",
+      "Network access through mcp-remote@0.1.38"
+    ],
+    "websiteURL": "https://zairalabs.ai/about-the-guide/",
+    "privacyPolicyURL": "https://zairalabs.ai/privacy",
+    "termsOfServiceURL": "https://zairalabs.ai/terms",
+    "defaultPrompt": [
+      "Find the best developer tools for this job.",
+      "Compare these tools for an autonomous agent.",
+      "Check whether this tool is agent-ready."
+    ],
+    "brandColor": "#6D5CE7"
+  },
+  "mcpServers": "./.mcp.json"
+}
