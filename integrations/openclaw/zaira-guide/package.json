@@ -1,0 +1,20 @@
+{
+  "name": "@zairalabs/zaira-guide",
+  "version": "0.1.0",
+  "description": "Research and compare developer tools with the read-only Zaira Guide MCP server.",
+  "license": "SEE LICENSE IN ../../../LICENSE",
+  "homepage": "https://zairalabs.ai/about-the-guide/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZairaLabs/mcp.git",
+    "directory": "integrations/openclaw/zaira-guide"
+  },
+  "keywords": [
+    "openclaw",
+    "clawhub",
+    "mcp",
+    "developer-tools",
+    "tool-comparison",
+    "agent-readiness"
+  ]
+}

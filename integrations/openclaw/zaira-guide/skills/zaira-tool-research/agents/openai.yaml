@@ -1,0 +1,4 @@
+interface:
+  display_name: "Zaira Tool Research"
+  short_description: "Research and compare developer tools with Zaira Guide."
+  default_prompt: "Research the best developer tool for this job using Zaira Guide."

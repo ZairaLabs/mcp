@@ -5,6 +5,8 @@ Guide MCP server, the Zaira Guide, and their content are proprietary to
 Zaira Labs. Use of the server and its data is governed by the Zaira Labs
 Terms of Service: https://zairalabs.ai/terms
 
-The metadata files in this repository (server.json, smithery.yaml, README.md)
+The metadata files in this repository (including server.json, smithery.yaml,
+README.md, and integrations/openclaw/zaira-guide)
 may be read and referenced by MCP registries and directories for the purpose
-of listing the server.
+of listing the server and distributing the Zaira Guide bundle without
+modification. No other rights are granted.

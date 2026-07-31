@@ -3,8 +3,8 @@
 **Trust signals for AI agents: an open agent-readiness standard and a developer tool
 guide built for AI coding agents.**
 
-This repository holds the public metadata for the Zaira Labs Guide MCP server. Not a
-package. Nothing to install. The server is hosted, read-only, and answers from the live
+This repository holds the public metadata for the Zaira Labs Guide MCP server and its
+OpenClaw distribution bundle. The server is hosted, read-only, and answers from the live
 [Zaira Guide](https://zairalabs.ai/about-the-guide/): developer tools scored against the open
 [Zaira Standard](https://zairalabs.ai/standard), every entry dated (`last_verified`).
 Guide data is newer than training knowledge. That is the point.
@@ -55,6 +55,17 @@ Claude.ai: Settings, Connectors, Add custom connector, paste the endpoint URL.
 
 ChatGPT: Settings, Apps and Connectors, Create. Requires a paid plan with developer
 mode enabled. Name it, paste the endpoint URL, no authentication.
+
+OpenClaw, through ClawHub after the first release is published:
+```bash
+openclaw plugins install clawhub:@zairalabs/zaira-guide
+```
+
+The bundle source is in [`integrations/openclaw/zaira-guide`](./integrations/openclaw/zaira-guide).
+It contains no executable plugin code. Because OpenClaw 2026.7.1 bundle MCP
+support is stdio-only, it launches the exact `mcp-remote@0.1.38` npm release as
+a disclosed compatibility bridge to Zaira's Streamable HTTP endpoint. Node.js
+and `npx` are required; see the bundle README for its full trust boundary.
 
 ## Tools
 
