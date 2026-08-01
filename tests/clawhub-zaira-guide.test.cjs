@@ -212,7 +212,7 @@ test("keeps the package, plugin, bridge, and workflow versions synchronized", ()
     workflow,
     /uses: openclaw\/clawhub\/\.github\/workflows\/package-publish\.yml@1a3ee6e015af1d9a83a9ce271b56b22d9e17ad20/,
   );
-  assert.match(workflow, /validate-or-publish:\n\s+needs: bundle-tests/);
+  assert.match(workflow, /validate-or-publish:\r?\n\s+needs: bundle-tests/);
   assert.match(workflow, /source_path: integrations\/openclaw\/zaira-guide/);
   assert.match(workflow, /version: 0\.1\.1/);
   assert.doesNotMatch(workflow, /source: \.\/integrations\/openclaw\/zaira-guide/);
