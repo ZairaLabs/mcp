@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "integrations/openclaw/zaira-guide/**"
+      - "tests/clawhub-zaira-guide.test.cjs"
       - ".github/workflows/clawhub-zaira-guide.yml"
   workflow_dispatch:
     inputs:

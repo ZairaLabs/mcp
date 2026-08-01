@@ -38,6 +38,7 @@ function installFakeNpx(t) {
     `#!/usr/bin/env node
 const fs = require("node:fs");
 fs.writeFileSync(process.env.FAKE_NPX_ARGS_PATH, JSON.stringify(process.argv.slice(2)));
+if (process.env.FAKE_NPX_SIGNAL) process.kill(process.pid, process.env.FAKE_NPX_SIGNAL);
 if (process.env.FAKE_NPX_EXIT_CODE) process.exit(Number(process.env.FAKE_NPX_EXIT_CODE));
 process.stdin.pipe(process.stdout);
 `,
@@ -138,6 +139,23 @@ test("propagates bridge exit failures", async (t) => {
     FAKE_NPX_EXIT_CODE: "23",
   });
   assert.equal(result.code, 23, result.stderr);
+});
+
+test("reports a missing npx executable", async () => {
+  const result = await runBridge("", { PATH: "/nonexistent" });
+  assert.equal(result.code, 1);
+  assert.match(result.stderr, /Unable to start the Zaira MCP bridge: spawn npx ENOENT/);
+});
+
+test("propagates child termination signals", async (t) => {
+  const fakeNpxDirectory = installFakeNpx(t);
+  const result = await runBridge("", {
+    PATH: `${fakeNpxDirectory}${path.delimiter}${process.env.PATH ?? ""}`,
+    FAKE_NPX_ARGS_PATH: path.join(fakeNpxDirectory, "args.json"),
+    FAKE_NPX_SIGNAL: "SIGTERM",
+  });
+  assert.equal(result.code, null);
+  assert.equal(result.signal, "SIGTERM");
 });
 
 test("keeps the package, plugin, bridge, and workflow versions synchronized", () => {
