@@ -62,32 +62,56 @@ function main() {
 
   child.stdout.pipe(process.stdout);
   const input = readline.createInterface({ input: process.stdin, crlfDelay: Infinity });
-  let initializeRewritten = false;
-  input.on("line", (line) => {
-    let output = line;
-    if (!initializeRewritten) {
-      const frame = rewriteInitializeFrame(line);
-      output = frame.line;
-      initializeRewritten = frame.rewritten;
+  let childFinished = false;
+
+  function stopInput() {
+    input.close();
+    process.stdin.pause();
+  }
+
+  void (async () => {
+    let initializeRewritten = false;
+    try {
+      for await (const line of input) {
+        let output = line;
+        if (!initializeRewritten) {
+          const frame = rewriteInitializeFrame(line);
+          output = frame.line;
+          initializeRewritten = frame.rewritten;
+        }
+        await new Promise((resolve, reject) => {
+          child.stdin.write(`${output}\n`, (error) => {
+            if (error) reject(error);
+            else resolve();
+          });
+        });
+      }
+    } catch (error) {
+      if (!childFinished && error.code !== "EPIPE" && error.code !== "ERR_STREAM_DESTROYED") {
+        console.error(`Unable to write to the Zaira MCP bridge: ${error.message}`);
+        process.exitCode = 1;
+        child.kill();
+      }
+    } finally {
+      if (!child.stdin.destroyed) child.stdin.end();
     }
-    if (!child.stdin.write(`${output}\n`)) {
-      input.pause();
-      child.stdin.once("drain", () => input.resume());
-    }
-  });
-  input.on("close", () => child.stdin.end());
+  })();
 
   child.stdin.on("error", (error) => {
-    if (error.code !== "EPIPE") {
+    if (!childFinished && error.code !== "EPIPE") {
       console.error(`Unable to write to the Zaira MCP bridge: ${error.message}`);
       process.exitCode = 1;
     }
   });
   child.on("error", (error) => {
+    childFinished = true;
+    stopInput();
     console.error(`Unable to start the Zaira MCP bridge: ${error.message}`);
     process.exitCode = 1;
   });
   child.on("exit", (code, signal) => {
+    childFinished = true;
+    stopInput();
     if (signal) process.kill(process.pid, signal);
     else process.exitCode = code ?? 1;
   });

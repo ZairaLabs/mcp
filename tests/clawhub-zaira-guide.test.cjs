@@ -26,7 +26,7 @@ function runBridge(input, env = {}) {
     child.stderr.on("data", (chunk) => { stderr += chunk; });
     child.on("error", reject);
     child.on("close", (code, signal) => resolve({ code, signal, stdout, stderr }));
-    child.stdin.end(input);
+    if (input !== null) child.stdin.end(input);
   });
 }
 
@@ -143,6 +143,12 @@ test("propagates bridge exit failures", async (t) => {
 
 test("reports a missing npx executable", async () => {
   const result = await runBridge("", { PATH: "/nonexistent" });
+  assert.equal(result.code, 1);
+  assert.match(result.stderr, /Unable to start the Zaira MCP bridge: spawn npx ENOENT/);
+});
+
+test("terminates promptly on spawn failure while client stdin stays open", { timeout: 2000 }, async () => {
+  const result = await runBridge(null, { PATH: "/nonexistent" });
   assert.equal(result.code, 1);
   assert.match(result.stderr, /Unable to start the Zaira MCP bridge: spawn npx ENOENT/);
 });
