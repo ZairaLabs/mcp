@@ -1,14 +1,9 @@
 {
   "mcpServers": {
     "zaira-guide": {
-      "command": "npx",
+      "command": "node",
       "args": [
-        "-y",
-        "mcp-remote@0.1.38",
-        "https://zairalabs.ai/guide/mcp",
-        "--transport",
-        "http-only",
-        "--silent"
+        "./bin/zaira-guide-bridge.cjs"
       ]
     }
   }
