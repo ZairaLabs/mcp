@@ -8,6 +8,16 @@ const readline = require("node:readline");
 const BUNDLE_NAME = "zaira-clawhub-bundle";
 const { version: BUNDLE_VERSION } = require("../package.json");
 
+function npxLauncher(platform = process.platform, environment = process.env) {
+  if (platform === "win32") {
+    return {
+      command: environment.ComSpec || "cmd.exe",
+      args: ["/d", "/s", "/c", "npx.cmd"],
+    };
+  }
+  return { command: "npx", args: [] };
+}
+
 function rewriteInitializeFrame(line) {
   let message;
   try {
@@ -47,9 +57,11 @@ function rewriteInitializeLine(line) {
 }
 
 function main() {
+  const launcher = npxLauncher();
   const child = spawn(
-    "npx",
+    launcher.command,
     [
+      ...launcher.args,
       "-y",
       "mcp-remote@0.1.38",
       "https://zairalabs.ai/guide/mcp",
@@ -119,4 +131,4 @@ function main() {
 
 if (require.main === module) main();
 
-module.exports = { BUNDLE_NAME, BUNDLE_VERSION, rewriteInitializeLine };
+module.exports = { BUNDLE_NAME, BUNDLE_VERSION, npxLauncher, rewriteInitializeLine };

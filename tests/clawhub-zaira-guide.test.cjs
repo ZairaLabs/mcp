@@ -10,7 +10,7 @@ const test = require("node:test");
 const repositoryRoot = path.resolve(__dirname, "..");
 const bundleRoot = path.join(repositoryRoot, "integrations/openclaw/zaira-guide");
 const bridgePath = path.join(bundleRoot, "bin/zaira-guide-bridge.cjs");
-const { BUNDLE_NAME, BUNDLE_VERSION, rewriteInitializeLine } = require(bridgePath);
+const { BUNDLE_NAME, BUNDLE_VERSION, npxLauncher, rewriteInitializeLine } = require(bridgePath);
 
 function runBridge(input, env = {}) {
   return new Promise((resolve, reject) => {
@@ -32,17 +32,25 @@ function runBridge(input, env = {}) {
 
 function installFakeNpx(t) {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), "zaira-guide-npx-"));
-  const executable = path.join(directory, "npx");
+  const fakeScript = path.join(directory, "fake-npx.cjs");
   fs.writeFileSync(
-    executable,
-    `#!/usr/bin/env node
+    fakeScript,
+    `
 const fs = require("node:fs");
 fs.writeFileSync(process.env.FAKE_NPX_ARGS_PATH, JSON.stringify(process.argv.slice(2)));
 if (process.env.FAKE_NPX_SIGNAL) process.kill(process.pid, process.env.FAKE_NPX_SIGNAL);
 if (process.env.FAKE_NPX_EXIT_CODE) process.exit(Number(process.env.FAKE_NPX_EXIT_CODE));
 process.stdin.pipe(process.stdout);
 `,
+  );
+  fs.writeFileSync(
+    path.join(directory, "npx"),
+    `#!/bin/sh\nexec "${process.execPath}" "${fakeScript}" "$@"\n`,
     { mode: 0o755 },
+  );
+  fs.writeFileSync(
+    path.join(directory, "npx.cmd"),
+    `@echo off\r\n"${process.execPath}" "%~dp0fake-npx.cjs" %*\r\n`,
   );
   t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
   return directory;
@@ -100,6 +108,15 @@ test("leaves invalid initialize shapes unchanged and preserves other client meta
   assert.equal(output.params.clientInfo.title, "Host UI");
 });
 
+test("selects a native npx launcher on POSIX and cmd.exe on Windows", () => {
+  assert.deepEqual(npxLauncher("linux"), { command: "npx", args: [] });
+  assert.deepEqual(npxLauncher("darwin"), { command: "npx", args: [] });
+  assert.deepEqual(npxLauncher("win32", { ComSpec: "C:\\Windows\\cmd.exe" }), {
+    command: "C:\\Windows\\cmd.exe",
+    args: ["/d", "/s", "/c", "npx.cmd"],
+  });
+});
+
 test("runs the pinned bridge end to end and preserves line framing", async (t) => {
   const fakeNpxDirectory = installFakeNpx(t);
   const argsPath = path.join(fakeNpxDirectory, "args.json");
@@ -144,16 +161,20 @@ test("propagates bridge exit failures", async (t) => {
 test("reports a missing npx executable", async () => {
   const result = await runBridge("", { PATH: "/nonexistent" });
   assert.equal(result.code, 1);
-  assert.match(result.stderr, /Unable to start the Zaira MCP bridge: spawn npx ENOENT/);
+  if (process.platform !== "win32") {
+    assert.match(result.stderr, /Unable to start the Zaira MCP bridge: spawn npx ENOENT/);
+  }
 });
 
 test("terminates promptly on spawn failure while client stdin stays open", { timeout: 2000 }, async () => {
   const result = await runBridge(null, { PATH: "/nonexistent" });
   assert.equal(result.code, 1);
-  assert.match(result.stderr, /Unable to start the Zaira MCP bridge: spawn npx ENOENT/);
+  if (process.platform !== "win32") {
+    assert.match(result.stderr, /Unable to start the Zaira MCP bridge: spawn npx ENOENT/);
+  }
 });
 
-test("propagates child termination signals", async (t) => {
+test("propagates child termination signals", { skip: process.platform === "win32" }, async (t) => {
   const fakeNpxDirectory = installFakeNpx(t);
   const result = await runBridge("", {
     PATH: `${fakeNpxDirectory}${path.delimiter}${process.env.PATH ?? ""}`,
