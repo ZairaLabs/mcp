@@ -8,13 +8,17 @@ One installation adds both the `zaira-tool-research` skill and a direct,
 read-only connection to the hosted Zaira Guide MCP server. The skill guides
 agents through discovery, due diligence, and side-by-side comparison. The MCP
 server supplies current records, sources, and verification dates. No Zaira
-account, API key, or executable Zaira plugin code is required.
+account, API key, or native OpenClaw plugin code is required.
 
 OpenClaw's current compatible-bundle importer accepts local stdio MCP entries.
-This bundle therefore uses the exact, signed `mcp-remote@0.1.38` release as a
-compatibility bridge to Zaira's hosted Streamable HTTP endpoint. Node.js and
-`npx` are required. The bridge can be removed when supported OpenClaw releases
-accept hosted HTTP MCP entries directly from compatible bundles.
+This bundle therefore uses a small local wrapper around the exact, signed
+`mcp-remote@0.1.38` release as a compatibility bridge to Zaira's hosted
+Streamable HTTP endpoint. Node.js and `npx` are required. The wrapper changes
+only the MCP initialize client name and version to `zaira-clawhub-bundle` and
+this package version. That privacy-safe marker counts bundle-mediated use; it
+does not identify a user and adds no new data collection. The bridge can be
+removed when supported OpenClaw releases accept hosted HTTP MCP entries
+directly from compatible bundles.
 
 ## Install
 
@@ -52,12 +56,13 @@ in search text. Use is governed by the
 
 ## Trust boundary
 
-The bundle contains no executable Zaira plugin code or install scripts. At
-runtime, OpenClaw launches `npx -y mcp-remote@0.1.38`, which may download and
-execute that exact npm package on first use. The pinned bridge is MIT-licensed,
-signed on npm, has no package lifecycle scripts, and had no known production
-dependency vulnerabilities when this release was prepared. It forwards MCP
-messages to the Zaira endpoint.
+The bundle contains no native OpenClaw plugin code or install scripts. Its
+small Node.js wrapper launches `npx -y mcp-remote@0.1.38`, which may download
+and execute that exact npm package on first use. The wrapper rewrites only MCP
+initialize client metadata; tool calls, search text, and responses pass through
+unchanged. The pinned bridge is MIT-licensed, signed on npm, has no package
+lifecycle scripts, and had no known production dependency vulnerabilities when
+this release was prepared. It forwards MCP messages to the Zaira endpoint.
 
 The Zaira server requires no credentials. The bundle does not configure OAuth,
 pass credentials, request background workers, or request local file

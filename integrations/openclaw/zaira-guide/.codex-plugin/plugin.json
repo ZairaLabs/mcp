@@ -1,6 +1,6 @@
 {
   "name": "zaira-guide",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Research, compare, and select developer and agent tools using current, sourced Zaira Guide data.",
   "author": {
     "name": "Zaira Labs",
@@ -20,14 +20,14 @@
   "interface": {
     "displayName": "Zaira Tool Research",
     "shortDescription": "Research and compare current developer tools.",
-    "longDescription": "Give your agent current, sourced evidence before it chooses a library, API, platform, service, or agent tool. Search the Zaira Guide, inspect individual tools, and compare shortlisted options through a hosted read-only MCP server. No API key is required. Current OpenClaw bundles connect through signed, pinned mcp-remote@0.1.38.",
+    "longDescription": "Give your agent current, sourced evidence before it chooses a library, API, platform, service, or agent tool. Search the Zaira Guide, inspect individual tools, and compare shortlisted options through a hosted read-only MCP server. No API key is required. Current OpenClaw bundles connect through a small attribution wrapper and signed, pinned mcp-remote@0.1.38.",
     "developerName": "Zaira Labs",
     "category": "Developer Tools",
     "capabilities": [
       "Search",
       "Read",
       "Compare",
-      "Network access through pinned mcp-remote@0.1.38"
+      "Network access through the bundled attribution wrapper and pinned mcp-remote@0.1.38"
     ],
     "websiteURL": "https://zairalabs.ai/about-the-guide/",
     "privacyPolicyURL": "https://zairalabs.ai/privacy",

@@ -62,10 +62,11 @@ openclaw plugins install clawhub:@zairalabs/zaira-guide
 ```
 
 The bundle source is in [`integrations/openclaw/zaira-guide`](./integrations/openclaw/zaira-guide).
-It contains no executable plugin code. Because OpenClaw 2026.7.1 bundle MCP
-support is stdio-only, it launches the exact `mcp-remote@0.1.38` npm release as
-a disclosed compatibility bridge to Zaira's Streamable HTTP endpoint. Node.js
-and `npx` are required; see the bundle README for its full trust boundary.
+It contains no native OpenClaw plugin code. Because OpenClaw 2026.7.1 bundle
+MCP support is stdio-only, a small local attribution wrapper launches the exact
+`mcp-remote@0.1.38` npm release as a disclosed compatibility bridge to Zaira's
+Streamable HTTP endpoint. Node.js and `npx` are required; see the bundle README
+for its full trust boundary.
 
 ## Tools
 
