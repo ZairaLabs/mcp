@@ -6,7 +6,7 @@ const { spawn } = require("node:child_process");
 const readline = require("node:readline");
 
 const BUNDLE_NAME = "zaira-clawhub-bundle";
-const BUNDLE_VERSION = "0.1.1";
+const { version: BUNDLE_VERSION } = require("../package.json");
 
 function rewriteInitializeLine(line) {
   let message;
