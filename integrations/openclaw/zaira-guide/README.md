@@ -15,8 +15,9 @@ This bundle therefore uses a small local wrapper around the exact, signed
 `mcp-remote@0.1.38` release as a compatibility bridge to Zaira's hosted
 Streamable HTTP endpoint. Node.js and `npx` are required. The wrapper changes
 only the MCP initialize client name and version to `zaira-clawhub-bundle` and
-this package version. That privacy-safe marker counts bundle-mediated use; it
-does not identify a user and adds no new data collection. The bridge can be
+this package version. That privacy-safe, self-identified marker attributes the
+package channel; it does not identify a user, attest a unique install, or add
+new data collection. The bridge can be
 removed when supported OpenClaw releases accept hosted HTTP MCP entries
 directly from compatible bundles.
 
