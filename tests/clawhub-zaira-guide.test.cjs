@@ -193,7 +193,7 @@ test("keeps the package, plugin, bridge, and workflow versions synchronized", ()
   );
   const mcpJson = JSON.parse(fs.readFileSync(path.join(bundleRoot, ".mcp.json")));
   const workflow = fs.readFileSync(
-    path.join(repositoryRoot, ".github/workflows/clawhub-zaira-guide.yml"),
+    path.join(repositoryRoot, ".github/workflows/clawhub-zaira-guide-publish.yml"),
     "utf8",
   );
 
@@ -221,4 +221,15 @@ test("keeps the package, plugin, bridge, and workflow versions synchronized", ()
     "trusted publishing must derive the owner from its registry binding",
   );
   assert.doesNotMatch(workflow, /source: \.\/integrations\/openclaw\/zaira-guide/);
+});
+
+
+test("keeps PR validation free of publisher credentials", () => {
+  const pr = fs.readFileSync(path.join(repositoryRoot, ".github/workflows/clawhub-zaira-guide.yml"), "utf8");
+  const publish = fs.readFileSync(path.join(repositoryRoot, ".github/workflows/clawhub-zaira-guide-publish.yml"), "utf8");
+  assert.match(pr, /pull_request:/);
+  assert.match(pr, /node --test tests\/clawhub-zaira-guide.test.cjs/);
+  assert.doesNotMatch(pr, /secrets\.|id-token:|package-publish.yml@/);
+  assert.doesNotMatch(publish, /pull_request:/);
+  assert.match(publish, /if: github.ref == 'refs\/heads\/main'/);
 });
